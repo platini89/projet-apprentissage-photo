@@ -1,0 +1,9 @@
+.face-snap-card {
+  width: 100%;
+  
+  box-shadow: 1px 1px 2px 1px black;
+  img {
+    width: 100%;
+  }
+}
+
