@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
     );
 
     this. mysdesnap = new FaceSnap (
-      'My First FaceSnap',
+      'My First FaceSnap hi',
       'This is a description of my first FaceSnap.',
       'https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg',
       new Date(),
