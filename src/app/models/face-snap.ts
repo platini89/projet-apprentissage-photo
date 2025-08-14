@@ -1,10 +1,15 @@
 export class FaceSnap {
+
+//ajout optionnel de la localisation
+    location?: string;
+
   constructor(public title: string,
               public description: string,
               public imageUrl: string,
               public createdAt: Date,
               public snaps: number) {}
 
+              //methode pour snap et onsnap
   addSnap(): void {
     this.snaps++;
   }
@@ -12,7 +17,15 @@ export class FaceSnap {
   removeSnap(): void {
     this.snaps--;
   }
+
+
+  //methode gerant la localisation
+  setLocation(location: string): void {
+    this.location = location;
+  }
 }
+
+
 
 /*
 //model for FaceSnap component

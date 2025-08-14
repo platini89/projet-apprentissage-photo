@@ -1,4 +1,5 @@
-<div class="at"><app-face-snap [faceSnap]="mySnap"></app-face-snap>
-<app-face-snap [faceSnap]=" myscodesnap"></app-face-snap>
-<app-face-snap [faceSnap]="mysdesnap"></app-face-snap>
+<div class="photo">
+  @for (faceSnapElement of faceSnaps; track faceSnapElement.title) {
+  <app-face-snap [faceSnap]="faceSnapElement"></app-face-snap>
+}
 </div>
