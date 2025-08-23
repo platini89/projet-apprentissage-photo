@@ -2,7 +2,7 @@
 
 
 <div class="face-snap-card" [ngClass]="{ snapped: userHasSnapped }">
-  <h2>{{ faceSnap.title }}</h2>
+<h2>{{ faceSnap.title | titlecase }}</h2>
 
   <!--affichier un element selon une condition avec @if -->
   @if (faceSnap.location) {

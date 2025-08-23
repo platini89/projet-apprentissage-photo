@@ -1,13 +1,18 @@
+import { SnapType } from './snap-type.type';
+
 export class FaceSnap {
 
 //ajout optionnel de la localisation
-    location?: string;
+     location?: string;
+  id: string;
 
   constructor(public title: string,
               public description: string,
               public imageUrl: string,
               public createdAt: Date,
-              public snaps: number) {}
+              public snaps: number) {
+    this.id = crypto.randomUUID().substring(0, 8);
+  }
 
               //methode pour snap et onsnap
   addSnap(): void {
@@ -18,10 +23,26 @@ export class FaceSnap {
     this.snaps--;
   }
 
+// methode gerant le snap et unsnap
+  snap(snapType: SnapType) {
+    if (snapType === 'snap') {
+      this.addSnap();
+    } else if (snapType === 'unsnap') {
+      this.removeSnap();
+    }
+}
+
 
   //methode gerant la localisation
   setLocation(location: string): void {
     this.location = location;
+  }
+
+  // methode pour retourner l'instance avec la localisation
+
+  withLocation(location: string): FaceSnap {
+    this.setLocation(location);
+    return this;
   }
 }
 
