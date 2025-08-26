@@ -1,55 +1,50 @@
+// services/face-snaps.service.ts
 import { Injectable } from '@angular/core';
 import { FaceSnap } from '../models/face-snap';
 import { SnapType } from '../models/snap-type.type';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class FaceSnapsService {
 
-// déclarer et initialiser le tableau dans la même expression
-    private faceSnaps:FaceSnap[] =
+  private faceSnaps: FaceSnap[] = [
+    new FaceSnap(
+      'Archibald',
+      'Mon meilleur ami depuis toujours !',
+      'https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg',
+      new Date(),
+      10,
+      'snap-1' // ← id FIXE
+    ),
+    new FaceSnap(
+      'Three Rock Mountain',
+      'Un endroit magnifique pour les randonnées.',
+      'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg',
+      new Date(),
+      6,
+      'snap-2' // ← id FIXE
+    ),
+    new FaceSnap(
+      'Un bon repas',
+      'Mmmh que c\'est bon !',
+      'https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg',
+      new Date(),
+      156,
+      'snap-3' // ← id FIXE
+    ).withLocation('à la montagne'),
+  ];
 
-    [
-        new FaceSnap(
-          'Archibald',
-          'Mon meilleur ami depuis toujours !',
-          'https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg',
-          new Date(),
-          10
-        ),
-        new FaceSnap(
-          'Three Rock Mountain',
-          'Un endroit magnifique pour les randonnées.',
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg',
-          new Date(),
-          6
-        ),
-        new FaceSnap(
-          'Un bon repas',
-          'Mmmh que c\'est bon !',
-          'https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg',
-          new Date(),
-          156
-        ).withLocation('à la montagne'),
-      ];
+  getFaceSnaps(): FaceSnap[] {
+    return [...this.faceSnaps];
+  }
 
+  getFaceSnapById(faceSnapId: string): FaceSnap {
+    const found = this.faceSnaps.find(fs => fs.id === faceSnapId);
+    if (!found) throw new Error('FaceSnap not found!');
+    return found;
+  }
 
-
-      //methode pour recuperer le tableau
-      getFaceSnaps(): FaceSnap[] {
-        return [...this.faceSnaps];
-       }
-
-
-       //methode pour recuperer un FaceSnap par son id
-
-    snapFaceSnapById(faceSnapId: string, snapType: SnapType): void {
-    const foundFaceSnap = this.faceSnaps.find(faceSnap => faceSnap.id === faceSnapId);
-    if (!foundFaceSnap) {
-      throw new Error('FaceSnap not found!');
-    }
-    foundFaceSnap.snap(snapType);
-}
-
+  snapFaceSnapById(faceSnapId: string, snapType: SnapType): void {
+    const fs = this.getFaceSnapById(faceSnapId);
+    fs.snap(snapType);
+  }
 }

@@ -1,0 +1,18 @@
+<div class="face-snap-card" [ngClass]="{ snapped: userHasSnapped }">
+  <h2>{{ faceSnap?.title | uppercase }}</h2>
+  <a routerLink="/facesnaps">BACK</a>
+
+  <p *ngIf="faceSnap?.location; else noLoc">Localisation : {{ faceSnap?.location }}</p>
+  <ng-template #noLoc><p>Aucune localisation</p></ng-template>
+
+  <img [src]="faceSnap?.imageUrl" [alt]="faceSnap?.title">
+  <p>{{ faceSnap?.description }}</p>
+  <p>FaceSnap créée le {{ faceSnap?.createdAt | date:'mediumDate' }}</p>
+
+  <p>
+    <button (click)="onSnap()" [disabled]="!faceSnap">{{ snapButtonText }}</button>
+    <span [ngStyle]="{ color: 'rgb(0, ' + (faceSnap?.snaps ?? 0) + ', 0)' }">
+      🤌 {{ faceSnap?.snaps ?? 0 }}
+    </span>
+  </p>
+</div>
