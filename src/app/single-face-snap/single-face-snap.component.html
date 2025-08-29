@@ -2,8 +2,11 @@
   <h2>{{ faceSnap?.title | uppercase }}</h2>
   <a routerLink="/facesnaps">BACK</a>
 
-  <p *ngIf="faceSnap?.location; else noLoc">Localisation : {{ faceSnap?.location }}</p>
-  <ng-template #noLoc><p>Aucune localisation</p></ng-template>
+  @if (faceSnap?.location) {
+    <p>Localisation : {{ faceSnap?.location }}</p>
+  } @else {
+    <p>Aucune localisation</p>
+  }
 
   <img [src]="faceSnap?.imageUrl" [alt]="faceSnap?.title">
   <p>{{ faceSnap?.description }}</p>

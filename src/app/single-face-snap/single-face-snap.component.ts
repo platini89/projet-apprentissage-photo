@@ -2,12 +2,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FaceSnap } from '../models/face-snap';
 import { FaceSnapsService } from '../services/face-snaps.service';
-import { NgClass, NgStyle, UpperCasePipe, NgIf, DatePipe } from '@angular/common';
+import { NgClass, NgStyle, UpperCasePipe, DatePipe } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-single-face-snap',
-  imports: [NgStyle, NgClass, RouterLink, UpperCasePipe, NgIf,DatePipe],
+  imports: [NgStyle, NgClass, RouterLink, UpperCasePipe, DatePipe],
   templateUrl: './single-face-snap.component.html',
   styleUrls: ['./single-face-snap.component.css'] // ← pluriel
 })
