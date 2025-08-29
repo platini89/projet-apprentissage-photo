@@ -17,8 +17,14 @@ export class FaceSnap {
   }
 
   addSnap() { this.snaps++; }
+
   removeSnap() { this.snaps--; }
-  snap(type: SnapType) { type === 'snap' ? this.addSnap() : this.removeSnap(); }
+
+  snap(type: SnapType)
+   { type === 'snap' ? this.addSnap() : this.removeSnap();
+    
+   }
+
   setLocation(loc: string) { this.location = loc; }
   withLocation(loc: string) { this.setLocation(loc); return this; }
 }
