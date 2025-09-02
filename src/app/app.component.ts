@@ -4,43 +4,43 @@ import { RouterOutlet } from '@angular/router';
 import { interval ,Observable,} from 'rxjs';
 import { AsyncPipe, } from '@angular/common';
 import { map,filter,tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { concatMap, mergeMap, delay, exhaustMap, switchMap, take,  } from 'rxjs/operators';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,HeaderComponent,AsyncPipe],
+  imports: [RouterOutlet,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent  implements OnInit{
 
-  interval$!: Observable<string>;
+  redTrainsCalled = 0;
+  yellowTrainsCalled = 0;
 
   ngOnInit() {
-    setTimeout(() => {
-     this.interval$ = interval(1000).pipe(
-      //filter to get only multiples of 3
-      // filtrer les multiples de 3
-          filter(value => value % 3 === 0),
-
-          // map to return a string indicating if the number is even or odd
-          // mapper pour retourner une chaîne indiquant si le nombre est pair ou impair
-        map(value => value % 2 === 0 ?
-        `Je suis ${value} et je suis pair` :
-        `Je suis ${value} et je suis impair`
-    ),
-
-    // tap to log the emitted text
-    // Tap pour enregistrer le texte émis
-      tap(text => this.logger(text))
-
-)  } , 2000);
+    interval(500).pipe(
+      take(10),
+      map(value => value % 2 === 0 ? 'rouge' : 'jaune'),
+      tap(color => console.log(`La lumière s'allume en %c${color}`, `color: ${this.translateColor(color)}`)),
+    concatMap(color => this.getTrainObservable$(color)),
+      tap(train => console.log(`Train %c${train.color} ${train.trainIndex} arrivé !`, `font-weight: bold; color: ${this.translateColor(train.color)}`))
+    ).subscribe();
   }
 
+  getTrainObservable$(color: 'rouge' | 'jaune') {
+    const isRedTrain = color === 'rouge';
+    isRedTrain ? this.redTrainsCalled++ : this.yellowTrainsCalled++;
+    const trainIndex = isRedTrain ? this.redTrainsCalled : this.yellowTrainsCalled;
+    console.log(`Train %c${color} ${trainIndex} appelé !`, `text-decoration: underline; color: ${this.translateColor(color)}`);
+    return of({ color, trainIndex }).pipe(
+      delay(isRedTrain ? 5000 : 6000)
+    );
+  }
 
-// simple logger function
-  logger(text: string): void {
-    console.log(`Log: ${text}`);
-}
+  translateColor(color: 'rouge' | 'jaune') {
+    return color === 'rouge' ? 'red' : 'yellow';
+  }
 }
