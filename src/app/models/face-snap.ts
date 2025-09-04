@@ -9,7 +9,7 @@ export class FaceSnap {
     public title: string,
     public description: string,
     public imageUrl: string,
-    public createdAt: Date,
+    public  createdDate: Date,
     public snaps: number,
     id?: string               // ← NOUVEAU: id optionnel
   ) {
@@ -22,7 +22,7 @@ export class FaceSnap {
 
   snap(type: SnapType)
    { type === 'snap' ? this.addSnap() : this.removeSnap();
-    
+
    }
 
   setLocation(loc: string) { this.location = loc; }
